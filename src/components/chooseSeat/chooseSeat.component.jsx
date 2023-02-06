@@ -1,4 +1,4 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import Seat from "../seat/seat.component";
 import "./chooseSeat.style.css";
 
