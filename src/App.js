@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { useSelector } from "react-redux";
 
-function App() {
+import Form from "./components/form/form.component";
+import ChooseSeat from "./components/chooseSeat/chooseSeat.component";
+import Bookings from "./components/bookings/bookings.component";
+
+import "./App.css";
+
+const App = () => {
+  const booking = useSelector((state) => state.booking);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <section className="container user">
+        <Form className="form-user" />
+        <ChooseSeat className="choose-seat" />
+      </section>
+
+      {booking.bookings.length > 0 ? (
+        <Bookings bookings={booking.bookings} title={"Pasajeros"} />
+      ) : (
+        ""
+      )}
+
+      {booking.waitingList.length > 0 ? (
+        <Bookings bookings={booking.waitingList} title={"Lista de espera"} />
+      ) : (
+        ""
+      )}
     </div>
   );
-}
+};
 
 export default App;

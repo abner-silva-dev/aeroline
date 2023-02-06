@@ -1,0 +1,29 @@
+.seat {
+  cursor: pointer;
+}
+
+.seat-group {
+  position: relative;
+  display: inline-block;
+}
+.seat-group p {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+}
+
+.seat-icon {
+  width: 5rem;
+  color: #94d82d;
+}
+
+.seat_icon-ocupate {
+  color: red;
+}
+
+.seat_icon-choose {
+  color: orange;
+}

@@ -1,0 +1,17 @@
+.form-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.form-input {
+  font-size: 1.8rem;
+  font-family: inherit;
+  color: #777;
+  height: 3rem;
+  border-radius: 3rem;
+  border: none;
+  box-shadow: 2px 2px 9px rgb(0, 0, 0, 0.3);
+  font-size: 1.6rem;
+}

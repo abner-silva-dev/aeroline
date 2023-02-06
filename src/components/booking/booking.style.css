@@ -1,0 +1,33 @@
+.booking {
+  padding: 3rem 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  column-gap: 2rem;
+}
+
+.booking__input {
+  width: 100%;
+  font-size: 1.8rem;
+  font-family: inherit;
+  color: #333;
+  height: 3rem;
+  border-radius: 3rem;
+  border: none;
+  font-size: 1.6rem;
+  box-shadow: 2px 2px 9px rgb(0, 0, 0, 0.3);
+}
+
+.booking__btn {
+  border: none;
+  border-radius: 19px;
+  background-color: #f03e3e;
+  color: #fff;
+  font-size: 1.6rem;
+  box-shadow: 2px 2px 9px rgb(0, 0, 0, 0.3);
+}
+
+.booking__group {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
