@@ -53,21 +53,42 @@ body {
   padding: 2rem 4rem;
 }
 
-/* @media (max-width: 84em) {
-  .hero {
-    max-width: 120rem;
-  }
+.footer {
+  width: 100%;
+  height: 50vh;
+  background-color: #212529;
+  margin-top: 26rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+  justify-content: space-between;
+  font-size: 20px;
+}
 
-  .heading-primary {
-    font-size: 4.4rem;
-  }
+.footer p {
+  color: #fff;
+  padding: 3rem;
+  justify-self: center;
+}
+.footer div {
+  padding: 4rem;
+  display: flex;
+  justify-content: center;
+  gap: 4rem;
+}
 
-  .gallery {
-    grid-template-columns: repeat(2, 1fr);
-  }
-} */
+.footer p a:link,
+.footer p a:visited {
+  color: #fff;
+  text-decoration: none;
+}
 
 @media (max-width: 56em) {
+  .footer {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr) !important;
+  }
+
   .user {
     grid-template-columns: repeat(1, 1fr);
     row-gap: 3rem;
