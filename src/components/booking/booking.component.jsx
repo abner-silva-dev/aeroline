@@ -2,10 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import "./booking.style.css";
 
 import { setBookings, setBooking } from "../../util/redux/slices/bookingSlice";
-import {
-  setWaitingList,
-  setWaitingLists,
-} from "../../util/redux/slices/waitingListSlice";
+import { setWaitingLists } from "../../util/redux/slices/waitingListSlice";
 import { setConfirmSeat } from "../../util/redux/slices/seatSlice";
 
 import { seatIsOcupated } from "../../util/helpers/helpers";
@@ -20,7 +17,6 @@ const Booking = ({ booking, workWith }) => {
   const isWaitingList = workWith === "waitingList";
 
   const handlerOnChange = (bookingField) => {
-    let chooseFieldBooking;
     let bookingsTemp;
     let currentBooking;
 
@@ -36,6 +32,9 @@ const Booking = ({ booking, workWith }) => {
           break;
         case "phoneNumber":
           currentBooking.phoneNumber = e.target.value;
+          break;
+        default:
+          return;
       }
 
       if (isWaitingList)

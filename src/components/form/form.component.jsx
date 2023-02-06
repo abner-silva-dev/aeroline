@@ -25,7 +25,6 @@ const AllSeatsIsOcupate = (seats) => {
 const Form = () => {
   const { currentUser } = useSelector((state) => state.user);
   const seat = useSelector((state) => state.seat);
-  const booking = useSelector((state) => state.booking);
   const formUser = useRef(null);
   const dispatch = useDispatch();
 
