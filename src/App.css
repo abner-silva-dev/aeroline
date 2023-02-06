@@ -52,3 +52,39 @@ body {
   display: inline-block;
   padding: 2rem 4rem;
 }
+
+/* @media (max-width: 84em) {
+  .hero {
+    max-width: 120rem;
+  }
+
+  .heading-primary {
+    font-size: 4.4rem;
+  }
+
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+  }
+} */
+
+@media (max-width: 56em) {
+  .user {
+    grid-template-columns: repeat(1, 1fr);
+    row-gap: 3rem;
+  }
+
+  .user .choose {
+    grid-row: 1/1;
+    grid-column: 1/1;
+  }
+
+  .booking {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 3rem;
+  }
+
+  .booking button {
+    grid-column: 1/-1;
+    padding: 3rem;
+  }
+}

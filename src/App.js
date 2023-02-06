@@ -7,7 +7,8 @@ import Bookings from "./components/bookings/bookings.component";
 import "./App.css";
 
 const App = () => {
-  const booking = useSelector((state) => state.booking);
+  const { bookings } = useSelector((state) => state.booking);
+  const { waitingList } = useSelector((state) => state.waitingList);
 
   return (
     <div className="App">
@@ -16,14 +17,18 @@ const App = () => {
         <ChooseSeat className="choose-seat" />
       </section>
 
-      {booking.bookings.length > 0 ? (
-        <Bookings bookings={booking.bookings} title={"Pasajeros"} />
+      {bookings.length > 0 ? (
+        <Bookings bookings={bookings} title={"Pasajeros"} workWith="bookings" />
       ) : (
         ""
       )}
 
-      {booking.waitingList.length > 0 ? (
-        <Bookings bookings={booking.waitingList} title={"Lista de espera"} />
+      {waitingList.length > 0 ? (
+        <Bookings
+          bookings={waitingList}
+          title={"Lista de espera"}
+          workWith="waitingList"
+        />
       ) : (
         ""
       )}

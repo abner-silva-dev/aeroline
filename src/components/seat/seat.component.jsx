@@ -1,13 +1,12 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useRef } from "react";
 
-import { chooseSeat } from "./../../util/redux/slices/seatSlice";
-import { setNumberSeat } from "./../../util/redux/slices/bookingSlice";
+import { setCurrentSeat } from "./../../util/redux/slices/seatSlice";
 
 import "./seat.style.css";
 
 const Seat = ({ seat }) => {
-  const seatR = useSelector((state) => state.seat.seat);
+  const { currentSeat } = useSelector((state) => state.seat);
   const dispatch = useDispatch();
   const seatIcon = useRef(null);
 
@@ -15,9 +14,10 @@ const Seat = ({ seat }) => {
     <div
       className="seat"
       onClick={() => {
-        if (seat.isReserved) return;
-        dispatch(chooseSeat({ seatNumber: seat.seatNumber, seatChoose: true }));
-        dispatch(setNumberSeat({ seat: seat.seatNumber }));
+        if (seat.isReserved) return alert("Asiento reservado");
+        dispatch(
+          setCurrentSeat({ seatNumber: seat.seatNumber, seatChoose: true })
+        );
       }}
     >
       <div className="seat-group">
@@ -29,7 +29,7 @@ const Seat = ({ seat }) => {
           strokeWidth="1.5"
           stroke="currentColor"
           className={`seat-icon ${seat.isReserved ? "seat_icon-ocupate" : ""} ${
-            seatR.seatChoose && seat.seatNumber === seatR.seatNumber
+            currentSeat.seatChoose && seat.seatNumber === currentSeat.seatNumber
               ? "seat_icon-choose"
               : ""
           }`}

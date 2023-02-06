@@ -1,20 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { aerolineDB } from "../../../earolineDB";
 
 export const seatSlice = createSlice({
   name: "seat",
   initialState: {
-    seat: {
+    currentSeat: {
       seatNumber: 0,
       seatChoose: false,
     },
+    seats: aerolineDB.seat.seats,
   },
   reducers: {
-    chooseSeat: (state, action) => {
-      state.seat = action.payload;
+    setCurrentSeat: (state, action) => {
+      state.currentSeat = action.payload;
+    },
+    setConfirmSeat: (state, action) => {
+      state.seats = action.payload.seats;
     },
   },
 });
 
-export const { chooseSeat } = seatSlice.actions;
+export const { setCurrentSeat, setConfirmSeat } = seatSlice.actions;
 
 export default seatSlice.reducer;

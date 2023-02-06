@@ -2,19 +2,16 @@ import { useSelector, useDispatch } from "react-redux";
 
 import FormInput from "../form-input/form-input.component";
 
-import { chooseSeat } from "./../../util/redux/slices/seatSlice";
-import {
-  setFullName,
-  setPhoneNumber,
-  setBooking,
-  confirmSeat,
-  setWaitingList,
-  setNumberSeat,
-} from "../../util/redux/slices/bookingSlice";
+import { setCurrentSeat } from "./../../util/redux/slices/seatSlice";
+import { setBooking } from "../../util/redux/slices/bookingSlice";
+import { setWaitingList } from "../../util/redux/slices/waitingListSlice";
+import { setCurrentUser } from "../../util/redux/slices/userSlice";
+
+import { setConfirmSeat } from "./../../util/redux/slices/seatSlice";
 
 import "./form.style.css";
 import { useRef } from "react";
-import { seatIsOcupated } from "../../util/redux/helpers/helpers";
+import { seatIsOcupated } from "../../util/helpers/helpers";
 
 const removeInputsForm = (form) => {
   form.current[0].value = "";
@@ -26,29 +23,38 @@ const AllSeatsIsOcupate = (seats) => {
 };
 
 const Form = () => {
-  const seat = useSelector((state) => state.seat.seat);
+  const { currentUser } = useSelector((state) => state.user);
+  const seat = useSelector((state) => state.seat);
   const booking = useSelector((state) => state.booking);
   const formUser = useRef(null);
   const dispatch = useDispatch();
 
   const setDefaultsParams = () => {
     dispatch(
-      chooseSeat({
+      setCurrentSeat({
         seatNumber: 0,
         seatChoose: false,
       })
     );
-    dispatch(setFullName({ fullName: "" }));
-    dispatch(setFullName({ setPhoneNumber: 0 }));
-    dispatch(setNumberSeat({ numberSeat: 0 }));
+    dispatch(
+      setCurrentUser({
+        currentUser: { fullName: "", phoneNumber: 0, seat: 0 },
+      })
+    );
     removeInputsForm(formUser);
   };
 
   const handlerSubmitDataBooking = (e) => {
     e.preventDefault();
-    if (AllSeatsIsOcupate(booking.seats)) {
+    if (AllSeatsIsOcupate(seat.seats)) {
       dispatch(
-        setWaitingList({ waitingList: { ...booking, id: `${Date.now() + 1}` } })
+        setWaitingList({
+          waitingList: {
+            ...currentUser,
+            seat: 0,
+            id: `${Date.now() + 1}`,
+          },
+        })
       );
       setDefaultsParams();
 
@@ -56,14 +62,24 @@ const Form = () => {
     }
 
     // 1) Check if there are a choose seat
-    if (!seat.seatChoose) return alert("Por favor elija un asiento");
-    dispatch(setBooking({ booking: { ...booking, id: `${Date.now() + 1}` } }));
+    if (!seat.currentSeat.seatChoose)
+      return alert("Por favor elija un asiento");
 
-    // 2) Change the new choose seat to ocupated
-    const newSeats = seatIsOcupated(booking, true);
+    dispatch(
+      setBooking({
+        booking: {
+          ...currentUser,
+          seat: seat.currentSeat.seatNumber,
+          id: `${Date.now() + 1}`,
+        },
+      })
+    );
+
+    // 2) Change the current seat to ocupated
+    const chosenSeat = seatIsOcupated(seat, true);
 
     // 3) Update new state
-    dispatch(confirmSeat({ seats: newSeats }));
+    dispatch(setConfirmSeat({ seats: chosenSeat }));
 
     // 4) put values in default
     setDefaultsParams();
@@ -83,7 +99,11 @@ const Form = () => {
           type="text"
           className="form__input"
           handlerOnChange={(e) => {
-            dispatch(setFullName({ fullName: e.target.value }));
+            dispatch(
+              setCurrentUser({
+                currentUser: { ...currentUser, fullName: e.target.value },
+              })
+            );
           }}
         ></FormInput>
         <FormInput
@@ -91,7 +111,11 @@ const Form = () => {
           type="number"
           className="form__input"
           handlerOnChange={(e) => {
-            dispatch(setPhoneNumber({ phoneNumber: e.target.value }));
+            dispatch(
+              setCurrentUser({
+                currentUser: { ...currentUser, phoneNumber: e.target.value },
+              })
+            );
           }}
         ></FormInput>
         <button className="btn">Reservar vuelo</button>

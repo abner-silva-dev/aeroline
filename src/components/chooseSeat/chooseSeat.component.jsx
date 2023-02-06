@@ -3,7 +3,7 @@ import Seat from "../seat/seat.component";
 import "./chooseSeat.style.css";
 
 const ChooseSeat = () => {
-  const seats = useSelector((state) => state.booking.seats);
+  const { seats } = useSelector((state) => state.seat);
 
   return (
     <div className="choose">
